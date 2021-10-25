@@ -4,7 +4,9 @@
 ###   End Date: 10/22/2021   ###
 
 #Imports
-import random# Allows the enemy actions to be randomised.
+import time #time.sleep lets me delay print outs so the information doesn't overwhlem the user
+
+import random #Allows the enemy actions to be randomised.
 
 import sys #Allows me to end the program
 
@@ -38,18 +40,24 @@ def fight():
             
             if target in goblins:
                 goblins[target] = goblins[target] - actions["stab"]
+                time.sleep(0.5)
                 print(f"You stabed {target}.")
                 
                 if goblins[target] <= 0:
                     print(f"You have slain {target}!")
+                    time.sleep(0.5)
                     print(f"{target} dropped some assorted nic naks")
+                    time.sleep(0.5)
                     inventory.append("nic naks")
+                    time.sleep(0.5)
                     print("You picked up the nic naks!")
+                    time.sleep(0.5)
                     del goblins[target] #Removes the dead goblin from the list of goblins.
                     g_fight()
                     
                 else:
                     g_fight()
+                    
             else: # they enter an incorrect target
                 print(f"You look around for {target} but can't find them, mayhaps they have already been vanquished.")
                 g_fight() 
@@ -65,8 +73,11 @@ def fight():
                 goblins["ronald"] = goblins["ronald"] - actions["slash"]
                 
                 if goblins["ronald"] <= 0:
+                    time.sleep(0.5)
                     print("You have slain ronald!")
+                    time.sleep(0.5)
                     print("ronald dropped some assorted nic naks")
+                    time.sleep(0.5)
                     inventory.append("nic naks")
                     print("You picked up the nic naks!")
                     del goblins["ronald"]
@@ -78,13 +89,17 @@ def fight():
                 pass
                 
             if "cecil" in goblins:
+                time.sleep(0.5)
                 print("You slashed cecil!")
                 goblins["cecil"] = goblins["cecil"] - actions["slash"]
                 
                 if goblins["cecil"] <= 0:
+                    time.sleep(0.5)
                     print("You have slain cecil!")
+                    time.sleep(0.5)
                     print("cecil dropped some assorted nic naks")
                     inventory.append("nic naks")
+                    time.sleep(0.5)
                     print("You picked up the nic naks!")
                     del goblins["cecil"]
                     
@@ -95,13 +110,17 @@ def fight():
                 pass
                 
             if "luke" in goblins:
+                time.sleep(0.5)
                 print("You slashed luke!")
                 goblins["luke"] = goblins["luke"] - actions["slash"]
                 
                 if goblins["luke"] <= 0:
+                    time.sleep(0.5)
                     print("You have slain luke!")
+                    time.sleep(0.5)
                     print("luke dropped some assorted nic naks")
                     inventory.append("nic naks")
+                    time.sleep(0.5)
                     print("You picked up the nic naks!")
                     del goblins["luke"]
                     
@@ -112,13 +131,17 @@ def fight():
                 pass
             
             if "gabby" in goblins:
+                time.sleep(0.5)
                 print("You slashed gabby!")
                 goblins["gabby"] = goblins["gabby"] - actions["slash"]
                 
                 if goblins["gabby"] <= 0:
+                    time.sleep(0.5)
                     print("You have slain gabby!")
+                    time.sleep(0.5)
                     print("gabby dropped some assorted nic naks")
                     inventory.append("nic naks")
+                    time.sleep(0.5)
                     print("You picked up the nic naks!")
                     del goblins["gabby"]
                     
@@ -132,6 +155,7 @@ def fight():
             g_fight()
             
         elif action == "fire": #Does seven damage to a single goblin and 3 to the player
+            time.sleep(0.5)
             target = input("Which goblin do you burn? ").lower()
             
             if target in goblins:
@@ -139,16 +163,21 @@ def fight():
                 print(f"You burned {target}.")
                 health["you"] = health["you"] - recoil["dmg"] #Recoil
                 if health["you"] <=0:
+                    time.sleep(0.5)
                     print("The heat was too much for you and you died.")
                     sys.exit()
                 
                 else:
+                    time.sleep(0.5)
                     print("You singed yourself a little.")
                     g_fight()
                     
                     if goblins[target] <= 0: # they kill a goblin.
+                        time.sleep(0.5)
                         print(f"You have slain {target}!")
+                        time.sleep(0.5)
                         print(f"{target} dropped some burnt nic naks") #Loot drop
+                        time.sleep(0.5)
                         inventory.append("burnt nic naks")
                         print("You picked up the nic naks!")
                         del goblins[target] # removing the dead goblin from the list of enemies.
@@ -167,12 +196,14 @@ def fight():
             sys.exit()
             
         else: #if they enter an input that isn't one of the actions
+            time.sleep(0.1)
             print("You don't have that luxury in this situation.")
             fight() #recurisively lets them try agian
             
     else: #They win
         print("You have vanquished the goblins!")
         print("You got some loot from the goblins and added it into your inventory!")
+        time.sleep(0.5)
         print(inventory)
         sys.exit()
         
@@ -180,10 +211,12 @@ def g_fight(): # goblins turn
     for item in goblins:
         attack = roll()
         if attack == 1 or attack == 2: #stabbing has a 2/5 chance
+            time.sleep(0.5)
             print(f"{item} stabbed you!")
             health["you"] = health["you"] - g_actions["stab"]
                 
             if health["you"] <= 0: #checking if they're dead
+                time.sleep(0.5)
                 print("The wound was fatal, you died.")
                 sys.exit()
                 
@@ -191,12 +224,15 @@ def g_fight(): # goblins turn
                 continue
             
         elif attack == 3: # buff has a 1/5 chance
+            time.sleep(0.5)
             print(f"{item} became more durable!")
             goblins[item] = goblins[item] + g_actions["buff"]
                        
         else: #miss has a 2/5 chance
+            time.sleep(0.5)
             print(f"{item} tried to stab you and missed.")
             
+    time.sleep(0.5)        
     fight() # your turn again
     
 #Main code
